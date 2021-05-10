@@ -27,7 +27,6 @@ if(SDL_VERSION EQUAL "1.2" OR NOT SDL2_FOUND)
 	if(SDL_FOUND)
 		set(SDL_VERSION "1.2")
 		set(SDL_VERSION_DEBIAN "1.2debian")
-		set(USE_PIXMAN ON)
 	endif()
 endif()
 
@@ -38,12 +37,6 @@ endif()
 
 set(SDL_VERSION "${SDL_VERSION}" PARENT_SCOPE)
 add_definitions(-DBUILD_SDL)
-
-find_feature(USE_PIXMAN "pixman-1")
-if(USE_PIXMAN)
-	add_definitions(-DUSE_PIXMAN)
-	set(CPACK_DEBIAN_PACKAGE_DEPENDS "${CPACK_DEBIAN_PACKAGE_DEPENDS},libpixman-1.0" PARENT_SCOPE)
-endif()
 
 if(WIN32)
 	list(APPEND SDL_LIBRARY imm32 setupapi version winmm)

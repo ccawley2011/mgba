@@ -34,10 +34,6 @@ CXX_GUARD_START
 #include "platform/opengl/gles2.h"
 #endif
 
-#ifdef USE_PIXMAN
-#include <pixman.h>
-#endif
-
 struct mCore;
 struct mSDLRenderer {
 	struct mCore* core;
@@ -56,6 +52,10 @@ struct mSDLRenderer {
 	SDL_Texture* sdlTex;
 	SDL_Renderer* sdlRenderer;
 	SDL_GLContext* glCtx;
+#else
+	SDL_Surface* screen;
+	SDL_Surface* surface;
+	SDL_Surface* tempSurface;
 #endif
 
 	unsigned width;
@@ -74,11 +74,6 @@ struct mSDLRenderer {
 #endif
 #if defined(BUILD_GLES2) || defined(USE_EPOXY)
 	struct mGLES2Context gl2;
-#endif
-
-#ifdef USE_PIXMAN
-	pixman_image_t* pix;
-	pixman_image_t* screenpix;
 #endif
 
 #ifdef BUILD_RASPI
